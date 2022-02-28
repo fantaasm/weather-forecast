@@ -1,10 +1,8 @@
-import React, {useState} from "react";
-import cities1 from "../public/cities1.json"
-import cities2 from "../public/cities2.json"
-import cities3 from "../public/cities3.json"
+import React, {useEffect, useState} from "react";
 import {GiMagnifyingGlass} from "react-icons/gi";
 import AutoCompleteList from "./AutoCompleteList";
 import {CityInfo} from "../types/weather";
+import axios from "axios";
 
 type Props = {
   onSubmit: (city:CityInfo) => void
@@ -14,6 +12,14 @@ type Props = {
 const SearchBar = ({onSubmit, limit}: Props): JSX.Element => {
   const [input, setInput] = useState<string>("");
   const [filteredList, setFilteredList] = useState<CityInfo[]>([])
+  const [cachedCityList,setCachedCityList] = useState<CityInfo[]>([])
+
+  useEffect(() => {
+    axios.get("/api/cities?getAll=true")
+      .then(res => setCachedCityList(res.data))
+  }, []);
+
+
 
   function addCity(city: CityInfo): void {
     onSubmit( city)
@@ -22,7 +28,7 @@ const SearchBar = ({onSubmit, limit}: Props): JSX.Element => {
 
   function handleFormSubmit(e: React.FormEvent): void {
     e.preventDefault()
-    const mappedTo: CityInfo = getCombinedCities().find((city: CityInfo) => city.name.toLowerCase().startsWith(input))
+    const mappedTo: CityInfo = cachedCityList?.find((city: CityInfo) => city.name.toLowerCase().startsWith(input))
     if (input.length > 0 && mappedTo) {
       addCity(mappedTo)
     }
@@ -33,7 +39,7 @@ const SearchBar = ({onSubmit, limit}: Props): JSX.Element => {
     const formInput: string = e.target.value.toLowerCase()
 
     // ugly but otherwise wont compile on netlify :/
-    let matchingCities: CityInfo[] = getCombinedCities().filter((city: CityInfo) => city.name.toLowerCase().startsWith(formInput))
+    let matchingCities: CityInfo[] = cachedCityList?.filter((city: CityInfo) => city.name.toLowerCase().startsWith(formInput))
 
     setInput(formInput);
     setFilteredList(matchingCities)
@@ -50,10 +56,6 @@ const SearchBar = ({onSubmit, limit}: Props): JSX.Element => {
       </div>
     </form>
   );
-}
-
-function getCombinedCities():CityInfo[] {
-  return [...cities1,...cities2,...cities3];
 }
 
 export default SearchBar
