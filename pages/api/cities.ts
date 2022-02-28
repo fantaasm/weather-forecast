@@ -2,7 +2,6 @@ import {NextApiRequest, NextApiResponse} from "next";
 import cities1 from "../../public/cities1.json"
 import cities2 from "../../public/cities2.json"
 import cities3 from "../../public/cities3.json"
-import cities4 from "../../public/cities4.json"
 import {db} from "../../firebase";
 import {collection, doc,  getDoc, setDoc} from "@firebase/firestore";
 import {CityInfo} from "../../types/weather";
@@ -51,7 +50,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     if (document) {
       try {
         const {cities} = document.data()
-        const userCities = combinedCityList.map((cityId:number) => (allCities.find(c => c.id === cityId)))
+        const userCities = getCombinedCities().map((cityId:number) => (allCities.find(c => c.id === cityId)))
         return res.status(200).json(userCities)
       } catch (e:any) {
         console.log(e.message)
@@ -72,5 +71,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 }
 
 function getCombinedCities():CityInfo[] {
-  return [...cities1,...cities2,...cities3,...cities4];
+  return [...cities1,...cities2,...cities3];
 }
