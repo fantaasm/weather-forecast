@@ -15,7 +15,7 @@ const SearchBar = ({onSubmit, limit}: Props): JSX.Element => {
   const [cachedCityList,setCachedCityList] = useState<CityInfo[]>([])
 
   useEffect(() => {
-    axios.get("http://198.244.149.33:8080/cities.json")
+    axios.get("https://raw.githubusercontent.com/Asperun/open-weather/main/public/cities.json")
       .then(res =>setCachedCityList(res.data))
   }, []);
 
