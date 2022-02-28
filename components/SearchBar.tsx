@@ -15,8 +15,8 @@ const SearchBar = ({onSubmit, limit}: Props): JSX.Element => {
   const [cachedCityList,setCachedCityList] = useState<CityInfo[]>([])
 
   useEffect(() => {
-    axios.get("/api/cities?getAll=true")
-      .then(res => setCachedCityList(res.data))
+    axios.get("http://198.244.149.33:8080/cities.json")
+      .then(res =>setCachedCityList(res.data))
   }, []);
 
 
