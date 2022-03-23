@@ -5,34 +5,33 @@ import {DefaultSeo} from "next-seo";
 import {AppProps} from "next/app";
 
 
-
-function MyApp({Component, pageProps: {session, ...pageProps},router}:AppProps) {
+function MyApp({Component, pageProps: {session, ...pageProps}, router}: AppProps) {
   const url = process.env.NEXT_PUBLIC_DOMAIN_NAME + router.route
 
-
-  console.log(pageProps)
   return (
     <>
       <Head>
-        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="icon"
+              type="image/png"
+              href="/favicon.png" />
       </Head>
       <DefaultSeo
-        titleTemplate="%s - Open Weather"
+        defaultTitle="Open Weather"
         openGraph={{
           type: 'website',
           locale: 'en_IE',
           url,
-          description: 'Get your daily weather',
-          site_name: `Open Weather | ${process.env.NEXT_PUBLIC_DOMAIN_NAME}`,
+          description: 'Get your daily weather forecast',
+          site_name: `Open Weather | wa.fantasea.pl`,
           images: [],
         }}
         canonical={url}
       />
 
       <SessionProvider session={session}>
-        <Component {...pageProps}  />
+        <Component {...pageProps} />
       </SessionProvider>
-  </>
+    </>
   );
 }
 

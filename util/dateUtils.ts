@@ -1,5 +1,5 @@
-export const weekDays:string[] = ["Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ]
-export const months:string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "November", "December"]
+export const weekDays: string[] = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+export const months: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "November", "December"]
 
 export function getCurrentDateString(): string {
   const today = new Date()

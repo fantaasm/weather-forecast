@@ -28,62 +28,66 @@ const LineGraph = ({data, interval}: Props): JSX.Element => {
   if (!data) return <h1>Please add a city to the list to display graphs</h1>
 
   const graphData = data.filter((value, index) => index % interval == 0)
-                        .map(hourly => ({x: convertTimeToHumanReadable(hourly.dt), y: hourly[properties[index].propertyName]}))
+    .map(hourly => ({x: convertTimeToHumanReadable(hourly.dt), y: hourly[properties[index].propertyName]}))
 
   return (
     <div className="overflow-hidden h-full w-full">
       <div className={"flex justify-center items-center gap-x-4 h-1/5"}>
-        <button className={"basis-1/3 text-right"} onClick={() => setIndex(index - 1)} disabled={index <= 0}>{'<'}</button>
+        <button className={"basis-1/3 text-right"}
+                onClick={() => setIndex(index - 1)}
+                disabled={index <= 0}>{'<'}</button>
         <h3 className={"tracking-wide font-semibold inline basis-1/3 text-center"}>{`${properties[index].name} over time`}</h3>
-        <button className={"basis-1/3 text-left"} onClick={() => setIndex(index + 1)} disabled={index >= properties.length - 1}>{'>'}</button>
+        <button className={"basis-1/3 text-left"}
+                onClick={() => setIndex(index + 1)}
+                disabled={index >= properties.length - 1}>{'>'}</button>
       </div>
       <div className={"h-4/5"}>
-      <ResponsiveLineCanvas
-        margin={{
-          top:20,
-          bottom:20,
-          left: 15,
-          right:15
-        }}
-        theme={{
-          textColor: "white",
-          grid: {
-            line: {
-              stroke: "#d6d6d6",
-              strokeWidth: 0.5
+        <ResponsiveLineCanvas
+          margin={{
+            top: 20,
+            bottom: 20,
+            left: 15,
+            right: 15
+          }}
+          theme={{
+            textColor: "white",
+            grid: {
+              line: {
+                stroke: "#d6d6d6",
+                strokeWidth: 0.5
+              }
             }
-          }
-        }}
-        data={[
-          {
-            id: properties[index].name,
-            data: graphData
-          }
-        ]}
-        xScale={{type: 'point'}}
-        yScale={{
-          type: 'linear',
-          min: 'auto',
-          max: 'auto',
-          stacked: true,
-          reverse: false
-        }}
-        axisLeft={null}
-        curve="monotoneX"
-        enableGridY={false}
-        pointSize={10}
-        pointColor={{theme: 'grid.line.stroke'}}
-        pointBorderWidth={2}
-        pointBorderColor={{from: 'serieColor'}}
-        enableArea={true}
-        tooltip={({point}) => {
-          return (
-            <div className={"bg-slate-900 p-2 border border-gray-600"}>
-              <div>{`${properties[index].name}: ${Math.floor(point.data.y) + " " + properties[index].postFix}`}</div>
-            </div>
-          )
-        }}
-      />
+          }}
+          data={[
+            {
+              id: properties[index].name,
+              data: graphData
+            }
+          ]}
+          xScale={{type: 'point'}}
+          yScale={{
+            type: 'linear',
+            min: 'auto',
+            max: 'auto',
+            stacked: true,
+            reverse: false
+          }}
+          axisLeft={null}
+          curve="monotoneX"
+          enableGridY={false}
+          pointSize={10}
+          pointColor={{theme: 'grid.line.stroke'}}
+          pointBorderWidth={2}
+          pointBorderColor={{from: 'serieColor'}}
+          enableArea={true}
+          tooltip={({point}) => {
+            return (
+              <div className={"bg-slate-900 p-2 border border-gray-600"}>
+                <div>{`${properties[index].name}: ${Math.floor(point.data.y) + " " + properties[index].postFix}`}</div>
+              </div>
+            )
+          }}
+        />
       </div>
     </div>
   );

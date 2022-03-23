@@ -4,18 +4,18 @@ export type Coordinates = {
 }
 
 export type CityInfo = {
-  id:number
-  name:string
-  country:string
-  state:string
-  coord:Coordinates
+  id: number
+  name: string
+  country: string
+  state: string
+  coord: Coordinates
 }
 
 export type CityData = {
-  daily:Weather[]
-  hourly:Weather[]
-  minutely:Weather[]
-  current:any
+  daily: Weather[]
+  hourly: Weather[]
+  minutely: Weather[]
+  current: any
 }
 
 

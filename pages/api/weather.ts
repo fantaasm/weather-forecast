@@ -2,7 +2,7 @@ import type {NextApiRequest, NextApiResponse} from 'next'
 import axios from "axios";
 
 type Data = {
-  error?:string
+  error?: string
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     })
 
     return res.status(200).json(response.data)
-  } catch (error:any) {
+  } catch (error: any) {
     console.log(error.message)
     return res.status(400).json({error: "Request failed"})
   }

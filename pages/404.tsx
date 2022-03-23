@@ -5,7 +5,7 @@ import {NextRouter, useRouter} from "next/router";
 const title = "404 Not found"
 const description = "Error page for open weather"
 
-const ErrorPage = () : JSX.Element => {
+const ErrorPage = (): JSX.Element => {
   const [time, setTime] = useState<number>(5)
   const router: NextRouter = useRouter()
 
@@ -20,7 +20,8 @@ const ErrorPage = () : JSX.Element => {
   }, [time])
 
   return (
-    <Layout title={title} description={description}>
+    <Layout title={title}
+            description={description}>
       <h1>This page doesn&apos;t exist</h1>
     </Layout>
   )

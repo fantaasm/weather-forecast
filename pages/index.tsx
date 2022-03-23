@@ -17,15 +17,15 @@ import {GiHamburgerMenu} from "react-icons/gi";
 import {Session} from "next-auth";
 
 const fetchIntervalInSeconds = 60
-const title = "Dashboard"
+const title = "Dashboard - Open Weather"
 const description = "Page description"
 
 type Props = {
   userCityList?: CityInfo[]
-  userSession:Session
+  userSession: Session
 }
 
-const Home = ({userCityList,userSession}: Props): JSX.Element => {
+const Home = ({userCityList, userSession}: Props): JSX.Element => {
   const [selectedCity, setSelectedCity] = useState<CityInfo | null>(null)
   const [cityInfoList, setCityInfoList] = useState<CityInfo[]>([])
   const [cityDataList, setCityDataList] = useState<CityData[]>([])
@@ -97,21 +97,28 @@ const Home = ({userCityList,userSession}: Props): JSX.Element => {
 
   const renderLocationCards = () => {
 
-    const cities = cityInfoList.map((city: CityInfo) => <LocationCard key={city.id} city={city} isSelected={selectedCity?.id === city?.id} deleteCity={removeCity} selectCity={setCurrentCity} />)
+    const cities = cityInfoList.map((city: CityInfo) => <LocationCard key={city.id}
+                                                                      city={city}
+                                                                      isSelected={selectedCity?.id === city?.id}
+                                                                      deleteCity={removeCity}
+                                                                      selectCity={setCurrentCity} />)
 
     const itemsToAdd: number = 4 - cities.length
     for (let i = 0; i < itemsToAdd; i++) {
-      cities.push(<LocationCard addCity={addCity} key={i}/>)
+      cities.push(<LocationCard addCity={addCity}
+                                key={i} />)
     }
     return cities
   }
 
   return (
-    <Layout title={title} description={description}>
+    <Layout title={title}
+            description={description}>
       <div className={"grid grid-flow-row md:grid-flow-col md:grid-cols-3 h-screen"}>
         <div className={"p-1 lg:p-4 md:col-span-2 grid grid-flow-row text-black gap-10 bg-blue-100"}>
           <div>
-            <SearchBar onSubmit={addCity} limit={3} />
+            <SearchBar onSubmit={addCity}
+                       limit={3} />
           </div>
           <h1 className={"text-4xl md:text-5xl tracking-wide"}>Weather <b>Forecast</b></h1>
           <div className={"grid grid-cols-2 lg:grid-cols-4 gap-8"}>
@@ -127,9 +134,9 @@ const Home = ({userCityList,userSession}: Props): JSX.Element => {
               <span>Notifications</span>
               <span className={"ml-4"}>Places</span>
             </div>
-              <button className={"block md:hidden"}>
-                <GiHamburgerMenu size={32} />
-              </button>
+            <button className={"block md:hidden"}>
+              <GiHamburgerMenu size={32} />
+            </button>
             <div className={"flex items-center gap-4"}>
               <span>{userSession.user?.name}</span>
               <ProfilePicture session={userSession} />
@@ -139,7 +146,10 @@ const Home = ({userCityList,userSession}: Props): JSX.Element => {
             <div className={"flex flex-col gap-4"}>
               <div className={"flex gap-2 items-center justify-center"}>
                 <Image src={`http://openweathermap.org/img/wn/${currentCityData?.current.weather[0].icon || '03d'}@2x.png`}
-                       alt={"clouds.png"} layout={"fixed"} width={52} height={52} />
+                       alt={"clouds.png"}
+                       layout={"fixed"}
+                       width={52}
+                       height={52} />
                 <div>
                   <p className={"text-4xl font-semibold tracking-wider"}>Today</p>
                   <p>{getCurrentDateString()}</p>
@@ -153,14 +163,16 @@ const Home = ({userCityList,userSession}: Props): JSX.Element => {
               <div className={"flex justify-around gap-4"}>
                 <span>Feels like {Math.floor(currentCityData?.current.feels_like) || 0}</span>
                 <span className={"px-5"}>
-                  <BsDot size={24} className={"inline"} />
+                  <BsDot size={24}
+                         className={"inline"} />
                 </span>
                 <span>Sunset {getDateFromUnix(currentCityData?.current.sunset).getHours() || "00"}:{getDateFromUnix(currentCityData?.current.sunset).getMinutes() || "00"}</span>
               </div>
             </div>
           </div>
           <div className={"row-span-6 overflow-hidden"}>
-            <LineGraph data={currentCityData?.hourly} interval={2} />
+            <LineGraph data={currentCityData?.hourly}
+                       interval={2} />
           </div>
         </div>
       </div>
@@ -194,7 +206,7 @@ const Home = ({userCityList,userSession}: Props): JSX.Element => {
 
 async function updateFirebase(user: any, cityList: CityInfo[]) {
 
-  console.log("user=",user)
+  console.log("user=", user)
   const cityIds = cityList.map(city => city.id);
 
   await axios.post("/api/cities", {userId: user.uid, cities: cityIds}, {

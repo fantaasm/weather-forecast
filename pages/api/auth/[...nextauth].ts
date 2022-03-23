@@ -10,11 +10,11 @@ export default NextAuth({
     })
     // ...add more providers here
   ],
-  session:{
-    jwt:true
+  session: {
+    jwt: true
   },
   callbacks: {
-    async session({ session, token }) {
+    async session({session, token}) {
       session.user.tag = session.user.name
         .split(" ")
         .join("")

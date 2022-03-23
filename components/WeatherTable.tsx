@@ -22,42 +22,51 @@ const WeatherTable = ({data}: Props): JSX.Element => {
 
         <button className={"font-extrabold flex flex-col items-center"}>
           <div>Week</div>
-          <BsDot size={24}/>
+          <BsDot size={24} />
         </button>
 
-        <button disabled={true} className={"text-gray-500 opacity-80 flex flex-col items-center"}>
+        <button disabled={true}
+                className={"text-gray-500 opacity-80 flex flex-col items-center"}>
           <div>Month</div>
-          <div><BsDot size={24}/></div>
+          <div><BsDot size={24} /></div>
         </button>
-        <button disabled={true} className={"text-gray-500 opacity-80 flex flex-col items-center"}>
+        <button disabled={true}
+                className={"text-gray-500 opacity-80 flex flex-col items-center"}>
           <div>3 months</div>
-          <div><BsDot size={24}/></div>
+          <div><BsDot size={24} /></div>
         </button>
-        <button disabled={true} className={"text-gray-500 opacity-80 flex flex-col items-center"}>
+        <button disabled={true}
+                className={"text-gray-500 opacity-80 flex flex-col items-center"}>
           <div>6 months</div>
-          <div><BsDot size={24}/></div>
+          <div><BsDot size={24} /></div>
         </button>
       </div>
 
 
       <div className={"grid grid-cols-6 md:grid-cols-7 items-center gap-y-2 sm:gap-y-6 justify-center text-center text-gray-700 font-semibold"}>
-        {data.slice(0, weekDays.length).map((day,i) => {
+        {data.slice(0, weekDays.length).map((day, i) => {
           return (
             <>
               <span className={"text-left overflow-hidden"}>{weekDays[new Date(day.dt * 1000).getDay()]}</span>
               <div>
-                <GiWaterDrop color={"blue"} className={"inline"} size={18} fill={"blue"} />
+                <GiWaterDrop color={"blue"}
+                             className={"inline"}
+                             size={18}
+                             fill={"blue"} />
                 <span className={"pl-2"}>{day.humidity}%</span>
               </div>
               <div className={"relative w-full h-full"}>
                 <Image src={`http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
-                       alt={"icon"} layout={"fill"} objectFit={"contain"} />
+                       alt={"icon"}
+                       layout={"fill"}
+                       objectFit={"contain"} />
               </div>
               <span className={"text-gray-500 opacity-80"}>
             {Math.floor(day.temp.min)}°C
           </span>
               <div className={"md:col-span-2 flex items-center"}>
-                <MinMaxLine min={Math.floor(day.temp.min)} max={Math.floor(day.temp.max)} />
+                <MinMaxLine min={Math.floor(day.temp.min)}
+                            max={Math.floor(day.temp.max)} />
               </div>
               <b className={"text-right"}>{Math.floor(day.temp.max)}°C</b>
             </>)
