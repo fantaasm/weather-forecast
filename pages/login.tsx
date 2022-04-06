@@ -149,9 +149,9 @@ const Login = ({ providers, csrfToken }: Props): JSX.Element => {
 
   return (
     <Layout title={title} description={description}>
-      <div className={"text-white h-screen flex sm:items-center"}>
+      <main className={"text-white h-screen flex sm:items-center"}>
         {login ? renderLoginForm() : renderRegisterForm()}
-      </div>
+      </main>
     </Layout>
   );
 
@@ -166,7 +166,7 @@ const Login = ({ providers, csrfToken }: Props): JSX.Element => {
           <h2>
             Not a member?{" "}
             <button
-              className={"text-sky-700 cursor-pointer"}
+              className={"text-sky-400 cursor-pointer"}
               onClick={switchForm}
             >
               Sign up
@@ -174,10 +174,10 @@ const Login = ({ providers, csrfToken }: Props): JSX.Element => {
           </h2>
         </div>
         {serverMessage?.error && (
-          <p className={"text-red-500"}>{serverMessage.error}</p>
+          <p className={"text-red-400"}>{serverMessage.error}</p>
         )}
         {serverMessage?.message && (
-          <p className={"text-sky-500"}>{serverMessage.message}</p>
+          <p className={"text-sky-700"}>{serverMessage.message}</p>
         )}
         <form
           method={"post"}
@@ -217,7 +217,7 @@ const Login = ({ providers, csrfToken }: Props): JSX.Element => {
               type="submit"
               name={"login button"}
               onClick={() => setLoading(true)}
-              className={`mt-2 p-4 bg-[#5794F8] rounded-md font-black drop-shadow-3xl tracking-wider relative ${
+              className={`mt-2 p-4 bg-sky-700 rounded-md font-black drop-shadow-3xl tracking-wider relative ${
                 loading ? "cursor-not-allowed opacity-80" : ""
               }`}
             >
@@ -277,7 +277,7 @@ const Login = ({ providers, csrfToken }: Props): JSX.Element => {
           <h2>
             Already a member?{" "}
             <button
-              className={"text-sky-700 cursor-pointer"}
+              className={"text-sky-400 cursor-pointer"}
               onClick={switchForm}
             >
               Sign in
@@ -288,7 +288,7 @@ const Login = ({ providers, csrfToken }: Props): JSX.Element => {
           <p className={"text-red-500"}>{serverMessage.error}</p>
         )}
         {serverMessage?.message && (
-          <p className={"text-sky-500"}>{serverMessage.message}</p>
+          <p className={"text-sky-700"}>{serverMessage.message}</p>
         )}
         <form method={"post"} onSubmit={submitRegisterForm}>
           <div className={"flex flex-col gap-6 mt-6"}>
@@ -299,9 +299,9 @@ const Login = ({ providers, csrfToken }: Props): JSX.Element => {
                 type="email"
                 placeholder="Email"
                 disabled={loading}
-                className={
-                  `mt-2 p-4 rounded-md block w-full bg-[#1F2329] bg-opacity-75 border-2 border-[#2D3136] ${loading ? "opacity-80" : ""}`
-                }
+                className={`mt-2 p-4 rounded-md block w-full bg-[#1F2329] bg-opacity-75 border-2 border-[#2D3136] ${
+                  loading ? "opacity-80" : ""
+                }`}
                 required
               />
             </div>
@@ -312,9 +312,9 @@ const Login = ({ providers, csrfToken }: Props): JSX.Element => {
                 type="password"
                 placeholder="Password"
                 disabled={loading}
-                className={
-                  `mt-2 p-4 rounded-md block w-full bg-[#1F2329] bg-opacity-75 border-2 border-[#2D3136] ${loading ? "opacity-80" : ""}`
-                }
+                className={`mt-2 p-4 rounded-md block w-full bg-[#1F2329] bg-opacity-75 border-2 border-[#2D3136] ${
+                  loading ? "opacity-80" : ""
+                }`}
                 required
               />
             </div>
@@ -326,16 +326,16 @@ const Login = ({ providers, csrfToken }: Props): JSX.Element => {
                 type="password"
                 placeholder="Password"
                 disabled={loading}
-                className={
-                  `mt-2 p-4 rounded-md block w-full bg-[#1F2329] bg-opacity-75 border-2 border-[#2D3136] ${loading ? "opacity-80" : ""}`
-                }
+                className={`mt-2 p-4 rounded-md block w-full bg-[#1F2329] bg-opacity-75 border-2 border-[#2D3136] ${
+                  loading ? "opacity-80" : ""
+                }`}
                 required
               />
             </div>
             <button
               type="submit"
               disabled={loading}
-              className={`mt-2 p-4 bg-[#5794F8] rounded-md font-black drop-shadow-3xl tracking-wider relative ${
+              className={`mt-2 p-4 bg-sky-700 rounded-md font-black drop-shadow-3xl tracking-wider relative ${
                 loading ? "cursor-not-allowed opacity-80" : ""
               }`}
             >
