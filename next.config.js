@@ -1,18 +1,31 @@
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
+/**
+ * @type {import('next').NextConfig}
+ */
 const nextConfig = {
-  // swcMinify: true,
+  basePath: "/weather-forecast",
+  swcMinify: true,
+  poweredByHeader: false,
+  compress: false,
   reactStrictMode: true,
+  staticPageGenerationTimeout: 300,
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production'
+    removeConsole: process.env.NODE_ENV === "production",
   },
-  // experimental: {
-  //   granularChunks: true
-  // },
+  experimental: {
+    outputStandalone: true,
+    concurrentFeatures: true,
+  },
   images: {
-    domains: ["openweathermap.org","lh3.googleusercontent.com"]
+    domains: ["openweathermap.org", "lh3.googleusercontent.com", "avatars.githubusercontent.com"],
+    formats: ['image/avif', 'image/webp'],
   },
   typescript: {
-    ignoreBuildErrors: true
-  }
-}
+    ignoreBuildErrors: true,
+  },
+};
 
-module.exports = nextConfig
+module.exports = withBundleAnalyzer(nextConfig);
