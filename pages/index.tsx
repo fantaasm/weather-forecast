@@ -13,7 +13,7 @@ import dynamic from "next/dynamic";
 import { Session } from "next-auth";
 import dayjs from "dayjs";
 import { useWeatherTable } from "../hooks/useWeatherTable";
-import {Spinner} from "../components/Spinner";
+import { Spinner } from "../components/Spinner";
 
 const title = "Dashboard - Weather Forecast";
 const description =
@@ -35,19 +35,19 @@ const Home = ({ userSession }: Props): JSX.Element => {
     getSelectedCity,
     setSelectedCity,
     getUserCities,
-    loading
+    loading,
   } = useWeatherTable({ userSession });
 
   const selectedCity = getSelectedCity();
   return (
     <Layout title={title} description={description}>
-      {loading && <Spinner/>}
+      {loading && <Spinner />}
       <div
         className={
           "grid grid-flow-row md:grid-flow-col md:grid-cols-3 h-screen"
         }
       >
-        <div
+        <main
           className={
             "p-1 lg:p-4 md:col-span-2 grid grid-flow-row text-black gap-10 bg-blue-100"
           }
@@ -56,7 +56,8 @@ const Home = ({ userSession }: Props): JSX.Element => {
             <DynamicSearchBar onSubmit={addCity} limit={3} />
           </div>
           <h1 className={"text-4xl md:text-5xl tracking-wide"}>
-            Weather <b>Forecast</b> for you, <b className={"font-black"}>{userSession.user.name}</b>
+            Weather <b>Forecast</b> for you,{" "}
+            <b className={"font-black"}>{userSession.user.name}</b>
           </h1>
           <div className={"grid grid-cols-2 lg:grid-cols-4 gap-8"}>
             {renderLocationCards()}
@@ -64,8 +65,8 @@ const Home = ({ userSession }: Props): JSX.Element => {
           <div className={"row-span-6"}>
             <WeatherTable data={selectedCity?.daily || null} />
           </div>
-        </div>
-        <div
+        </main>
+        <aside
           className={
             "grid grid-flow-row gap-4 md:gap-12 bg-gray-900 p-1 lg:p-4"
           }
@@ -135,7 +136,7 @@ const Home = ({ userSession }: Props): JSX.Element => {
           <div className={"row-span-6 overflow-hidden"}>
             <DynamicGraphs data={selectedCity?.hourly || null} interval={2} />
           </div>
-        </div>
+        </aside>
       </div>
     </Layout>
   );
