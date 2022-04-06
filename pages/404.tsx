@@ -1,13 +1,15 @@
 import Layout from "../components/Layout";
-import {useEffect, useState} from "react";
-import {NextRouter, useRouter} from "next/router";
+import { useEffect, useState } from "react";
+import { NextRouter, useRouter } from "next/router";
+import pageNotFound from "../public/page-not-found.svg";
+import Image from "next/image";
 
-const title = "404 Not found"
-const description = "Error page for open weather"
+const title = "404 Not found";
+const description = "Error page for open weather";
 
 const ErrorPage = (): JSX.Element => {
-  const [time, setTime] = useState<number>(5)
-  const router: NextRouter = useRouter()
+  const [time, setTime] = useState<number>(5);
+  const router: NextRouter = useRouter();
 
   useEffect(() => {
     if (time <= 0) {
@@ -16,15 +18,28 @@ const ErrorPage = (): JSX.Element => {
     }
     setTimeout(() => {
       setTime((redirectSeconds) => redirectSeconds - 1);
-    }, 1000)
-  }, [time])
+    }, 1000);
+  }, [time]);
 
   return (
-    <Layout title={title}
-            description={description}>
-      <h1>This page doesn&apos;t exist</h1>
+    <Layout title={title} description={description}>
+      <div className={"w-screen h-screen flex justify-center items-center"}>
+        <div className={"container p-2 max-w-xl text-center text-slate-400"}>
+          <Image
+            src={pageNotFound}
+            alt={"logo.png"}
+            layout={"responsive"}
+            objectFit={"scale-down"}
+            height={"128"}
+            width={"320"}
+          />
+          <p className={"mt-4 text-xl"}>
+            Page not found... redirecting in {time}
+          </p>
+        </div>
+      </div>
     </Layout>
-  )
-}
+  );
+};
 
-export default ErrorPage
+export default ErrorPage;

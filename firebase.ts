@@ -1,5 +1,5 @@
-import {getApp, getApps, initializeApp} from "firebase/app";
-import {getFirestore} from "firebase/firestore";
+import { FirebaseApp, getApp, getApps, initializeApp } from "firebase/app";
+import { Firestore, getFirestore } from "firebase/firestore";
 // import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
@@ -8,13 +8,15 @@ const firebaseConfig = {
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MS_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const db = getFirestore();
+const app: FirebaseApp = !getApps().length
+  ? initializeApp(firebaseConfig)
+  : getApp();
+const db: Firestore = getFirestore();
 // const storage = getStorage();
 
+export { db };
 export default app;
-export {db};
