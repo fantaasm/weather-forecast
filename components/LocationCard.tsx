@@ -1,11 +1,11 @@
-import image from "../public/rzeszow.png";
+import image from "../public/rzeszow.webp";
 import Image from "next/image";
-import {blurData} from "../util/imageHelper";
-import {convertAlpha2CodeToCountry} from "../util/countryUtils";
-import {AiOutlineCloseCircle} from "react-icons/ai";
-import {CityInfo} from "../types/weather";
-import {useState} from "react";
-import SearchBar from "./SearchBar";
+import { blurData } from "../services/imageHelper";
+import { convertAlpha2CodeToCountry } from "../services/countryUtils";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import { CityInfo } from "../types";
+import { useState } from "react";
+// import SearchBar from "./SearchBar";
 
 type Props = {
   city?: CityInfo;
@@ -16,12 +16,12 @@ type Props = {
 };
 
 const LocationCard = ({
-                        city,
-                        selectCity,
-                        deleteCity,
-                        addCity,
-                        isSelected,
-                      }: Props): JSX.Element => {
+  city,
+  selectCity,
+  deleteCity,
+  addCity,
+  isSelected,
+}: Props): JSX.Element => {
   const [showSearchBar, setShowSearchBar] = useState<boolean>(false);
 
   if (!city) {
@@ -32,14 +32,19 @@ const LocationCard = ({
           "rounded-2xl border-2 border-gray-600 hover:text-sky-600 hover:border-sky-600"
         }
       >
-        <div className={"flex flex-col gap-4 items-center justify-center z-40"}>
-          {(showSearchBar && <SearchBar onSubmit={addCity}
-                                        limit={3} />) || (
-            <>
-              <b>+</b>
-              <b>Add City</b>
-            </>
-          )}
+        <div
+          className={
+            "flex flex-col gap-4 items-center justify-center z-40 min-h-[285px]"
+          }
+        >
+          {/*{(showSearchBar && <SearchBar onSubmit={addCity}*/}
+          {/*                              limit={3} />) || (*/}
+          {/*  <>*/}
+          {/*    <b>+</b>*/}
+          {/*    <b>Add City</b>*/}
+          {/*  </>*/}
+          {/*)}*/}
+          <b>+</b>
         </div>
       </button>
     );

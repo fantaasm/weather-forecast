@@ -1,71 +1,97 @@
-import React, {useEffect, useState} from "react";
-import {GiMagnifyingGlass} from "react-icons/gi";
+import { useState } from "react";
+import { GiMagnifyingGlass } from "react-icons/gi";
 import AutoCompleteList from "./AutoCompleteList";
-import {CityInfo} from "../types/weather";
-import axios from "axios";
+import { CityInfo } from "../types";
+
+const pako = require("pako");
 
 type Props = {
-  onSubmit: (city: CityInfo) => void
-  limit: number
-}
+  onSubmit: (city: CityInfo) => void;
+  limit: number;
+};
 
-const SearchBar = ({onSubmit, limit}: Props): JSX.Element => {
+const SearchBar = ({ onSubmit, limit }: Props): JSX.Element => {
   const [input, setInput] = useState<string>("");
-  const [filteredList, setFilteredList] = useState<CityInfo[]>([])
-  const [cachedCityList, setCachedCityList] = useState<CityInfo[]>([])
-
-  useEffect(() => {
-    axios.get("https://raw.githubusercontent.com/Asperun/open-weather/main/public/cities.json")
-      .then(res => setCachedCityList(res.data))
-  }, []);
-
+  const [filteredList, setFilteredList] = useState<CityInfo[]>([]);
+  const [cachedCityList, setCachedCityList] = useState<CityInfo[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   function addCity(city: CityInfo): void {
-    onSubmit(city)
-    setInput("")
+    onSubmit(city);
+    setInput("");
   }
 
   function handleFormSubmit(e: React.FormEvent): void {
-    e.preventDefault()
-    const mappedTo: CityInfo = cachedCityList?.find((city: CityInfo) => city.name.toLowerCase().startsWith(input))
+    e.preventDefault();
+    const mappedTo: CityInfo | undefined = cachedCityList?.find(
+      (city: CityInfo) => city.name.toLowerCase().startsWith(input)
+    );
     if (input.length > 0 && mappedTo) {
-      addCity(mappedTo)
+      addCity(mappedTo);
     }
   }
 
   function handleFormChanged(e: React.FormEvent): void {
-    e.preventDefault()
-    const formInput: string = e.target.value.toLowerCase()
+    e.preventDefault();
+    //@ts-ignore
+    const formInput: string = e.target.value.toLowerCase();
 
-    // ugly but otherwise wont compile on netlify :/
-    let matchingCities: CityInfo[] = cachedCityList?.filter((city: CityInfo) => city.name.toLowerCase().startsWith(formInput))
+    let matchingCities: CityInfo[] = cachedCityList?.filter((city: CityInfo) =>
+      city.name.toLowerCase().startsWith(formInput)
+    );
 
     setInput(formInput);
-    setFilteredList(matchingCities)
+    setFilteredList(matchingCities);
+  }
+
+  function getCities() {
+    if (cachedCityList.length === 0 && !isLoading) {
+      setIsLoading(true);
+      fetch("weather-forecast/cities.json.gz", {
+        headers: {
+          "Accept-Encoding": "gzip",
+          "responseType": "arraybuffer",
+        },
+      })
+        .then((res) => res.arrayBuffer())
+        .then((res) => pako.ungzip(res, { to: "string" }))
+        .then((res) => setCachedCityList(JSON.parse(res)))
+        .then(() => setIsLoading(false))
+        .catch((err) => console.log(err));
+    }
   }
 
   return (
-    <form onSubmit={handleFormSubmit}
-          onClick={(e) => e.stopPropagation()}
-          className={"bg-white z-10 px-2 max-w-xs rounded-full"}
-          onBlur={() => setTimeout(() => setFilteredList([]), 200)}>
+    <form
+      onSubmit={handleFormSubmit}
+      onClick={(e) => e.stopPropagation()}
+      className={"bg-white z-10 px-2 max-w-xs rounded-full"}
+      onBlur={() => setTimeout(() => setFilteredList([]), 200)}
+    >
       <div className={"flex pl-2 items-center relative"}>
-        <GiMagnifyingGlass size={24}
-                           fill={"grey"}
-                           className={"-rotate-90 opacity-80"} />
-        <input value={input}
-               className={"ml-2 py-2 w-full bg-transparent"}
-               onChange={handleFormChanged}
-               type={"text"}
-               placeholder={"Search new phrase"} />
-        {input && input.length > 1 &&
-            <AutoCompleteList list={filteredList}
-                              onClick={addCity}
-                              limitResults={limit} />
-        }
+        <GiMagnifyingGlass
+          size={24}
+          fill={"grey"}
+          className={"-rotate-90 opacity-80"}
+        />
+        <input
+          value={input}
+          className={"ml-2 py-2 w-full bg-transparent"}
+          onChange={handleFormChanged}
+          onClick={getCities}
+          type={"text"}
+          placeholder={"Search new phrase"}
+        />
+        {input && input.length > 1 && (
+          <AutoCompleteList
+            list={filteredList}
+            onClick={addCity}
+            limitResults={limit}
+          />
+        )}
       </div>
     </form>
   );
-}
+};
 
-export default SearchBar
+export default SearchBar;
