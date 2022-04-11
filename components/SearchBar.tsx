@@ -23,8 +23,8 @@ const SearchBar = ({ onSubmit, limit }: Props): JSX.Element => {
 
   function handleFormSubmit(e: React.FormEvent): void {
     e.preventDefault();
-    const mappedTo: CityInfo | undefined = cachedCityList?.find(
-      (city: CityInfo) => city.name.toLowerCase().startsWith(input)
+    const mappedTo: CityInfo | undefined = cachedCityList?.find((city: CityInfo) =>
+      city.name.toLowerCase().startsWith(input)
     );
     if (input.length > 0 && mappedTo) {
       addCity(mappedTo);
@@ -69,11 +69,7 @@ const SearchBar = ({ onSubmit, limit }: Props): JSX.Element => {
       onBlur={() => setTimeout(() => setFilteredList([]), 200)}
     >
       <div className={"flex pl-2 items-center relative"}>
-        <GiMagnifyingGlass
-          size={24}
-          fill={"grey"}
-          className={"-rotate-90 opacity-80"}
-        />
+        <GiMagnifyingGlass size={24} fill={"grey"} className={"-rotate-90 opacity-80"} />
         <input
           value={input}
           className={"focus:outline-none text-dark ml-2 py-2 w-full bg-transparent"}
@@ -83,11 +79,7 @@ const SearchBar = ({ onSubmit, limit }: Props): JSX.Element => {
           placeholder={"Search new phrase"}
         />
         {input && input.length > 1 && (
-          <SuggestionList
-            list={filteredList}
-            onClick={addCity}
-            limitResults={limit}
-          />
+          <SuggestionList list={filteredList} onClick={addCity} limitResults={limit} />
         )}
       </div>
     </form>

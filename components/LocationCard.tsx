@@ -26,7 +26,11 @@ const LocationCard = ({
 
   if (!city) {
     return (
-      <div className={"flex flex-col gap-4 items-center justify-center h-[285px] w-[285px] border border-slate-500 rounded-md"}>
+      <div
+        className={
+          "flex flex-col gap-4 items-center justify-center h-[285px] w-[285px] border border-slate-500 rounded-md"
+        }
+      >
         <b>+</b>
       </div>
     );

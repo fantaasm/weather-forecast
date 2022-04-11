@@ -68,12 +68,7 @@ const WeatherTable = ({ data }: Props): JSX.Element => {
                 {weekDays[new Date(day.dt * 1000).getDay()]}
               </span>
               <div>
-                <GiWaterDrop
-                  color={"blue"}
-                  className={"inline"}
-                  size={18}
-                  fill={"blue"}
-                />
+                <GiWaterDrop color={"blue"} className={"inline"} size={18} fill={"blue"} />
                 <span className={"pl-2"}>{day.humidity}%</span>
               </div>
               <div className={"relative w-full h-full"}>
@@ -89,10 +84,7 @@ const WeatherTable = ({ data }: Props): JSX.Element => {
                 {Math.floor(day.temp.min)}°C
               </span>
               <div className={"md:col-span-2 flex items-center"}>
-                <MinMaxLine
-                  min={Math.floor(day.temp.min)}
-                  max={Math.floor(day.temp.max)}
-                />
+                <MinMaxLine min={Math.floor(day.temp.min)} max={Math.floor(day.temp.max)} />
               </div>
               <b className={"text-right"}>{Math.floor(day.temp.max)}°C</b>
             </Fragment>

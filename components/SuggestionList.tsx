@@ -6,11 +6,7 @@ type Props = {
   limitResults: number;
 };
 
-const SuggestionList = ({
-  list,
-  onClick,
-  limitResults,
-}: Props): JSX.Element => {
+const SuggestionList = ({ list, onClick, limitResults }: Props): JSX.Element => {
   return (
     <div className={"absolute top-10 left-9 bg-white z-10 w-auto w-48"}>
       {renderAutoCompleteList()}
@@ -23,9 +19,7 @@ const SuggestionList = ({
         key={city.id}
         type={"button"}
         onClick={() => onClick(city)}
-        className={
-          "block p-1 border-b border-gray-400 text-dark text-left w-full hover:bg-sky-400"
-        }
+        className={"block p-1 border-b border-gray-400 text-dark text-left w-full hover:bg-sky-400"}
       >
         {city.name}, {city.country}
       </button>

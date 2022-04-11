@@ -4,7 +4,7 @@ type Data = {
   error?: string;
 };
 
-export default async function handler( req: NextApiRequest, res: NextApiResponse<Data>) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   if (!req.query.lat || !req.query.lon) {
     return res.status(400).json({ error: "Wrong parameters" });
   }

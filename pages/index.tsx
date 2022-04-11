@@ -31,7 +31,8 @@ const DynamicSearchBar = dynamic(() => import("../components/SearchBar"));
 const DynamicCard = dynamic(() => import("../components/LocationCard"));
 
 const Home = ({ userSession }: Props): JSX.Element | null => {
-  const { addCity, removeCity, getSelectedCity, setSelectedCity, getUserCities, loading } = useWeatherTable({ userSession });
+  const { addCity, removeCity, getSelectedCity, setSelectedCity, getUserCities, loading } =
+    useWeatherTable({ userSession });
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -44,11 +45,14 @@ const Home = ({ userSession }: Props): JSX.Element | null => {
   return (
     <Layout title={title} description={description}>
       {loading && <Spinner />}
-      <div className={
+      <div
+        className={
           "grid grid-flow-row md:grid-flow-col md:grid-cols-3 h-screen w-screen max-w-full overflow-auto"
         }
       >
-        <main className={"dark:bg-gray-800 p-1 lg:p-4 md:col-span-2 flex flex-col justify-around bg-blue-100"
+        <main
+          className={
+            "dark:bg-gray-800 p-1 lg:p-4 md:col-span-2 flex flex-col justify-around bg-blue-100"
           }
         >
           <div>
@@ -58,7 +62,7 @@ const Home = ({ userSession }: Props): JSX.Element | null => {
             Weather <b>Forecast</b> for you, <b className={"font-black"}>{userSession.user.name}</b>{" "}
             {theme === "dark" ? "🌙" : "☀️"}
           </header>
-            <div
+          <div
             className={
               "mt-6 flex items-center overflow-y-clip overflow-x-auto gap-8 w-[500px] md:w-full min-h-[365px]"
             }
