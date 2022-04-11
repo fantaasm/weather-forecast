@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect, useState } from "react";
-import { CityData, CityInfo } from "../types";
+import { CityData, CityInfo, CombinedCityData } from "../types";
 import { fetchCitiesData, updateUserCities } from "../services/requestHelper";
 import { Session } from "next-auth";
 
@@ -29,14 +29,11 @@ export const useWeatherTable = (initial: { userSession: Session }) => {
 
     const getUserCities = async () => {
       setLoading(true);
-      const userCities = await fetch(
-        `${process.env.NEXT_PUBLIC_DOMAIN_NAME}/api/cities`,
-        {
-          headers: {
-            Authorization: initial.userSession.user.uid || "unauthenticated",
-          },
-        }
-      );
+      const userCities = await fetch(`${process.env.NEXT_PUBLIC_DOMAIN_NAME}/api/cities`, {
+        headers: {
+          Authorization: initial.userSession.user.uid || "unauthenticated",
+        },
+      });
       const userCitiesData = await userCities.json();
 
       if (userCities.ok) {
@@ -53,10 +50,7 @@ export const useWeatherTable = (initial: { userSession: Session }) => {
     if (cityInfoList.length === 0) return;
 
     updateCitiesData();
-    const interval = setInterval(
-      updateCitiesData,
-      fetchIntervalInSeconds * 1000
-    );
+    const interval = setInterval(updateCitiesData, fetchIntervalInSeconds * 1000);
     return () => clearInterval(interval);
   }, [cityInfoList]);
 
@@ -65,8 +59,7 @@ export const useWeatherTable = (initial: { userSession: Session }) => {
       if (cityInfoList.findIndex((c) => c.name === city.name) > -1) return;
 
       // for api calls..
-      if (cityInfoList.length >= 4)
-        return alert("You can only observe 4 cities at the time!");
+      if (cityInfoList.length >= 4) return alert("You can only observe 4 cities at the time!");
 
       console.log("adding city=", city);
 
@@ -86,8 +79,7 @@ export const useWeatherTable = (initial: { userSession: Session }) => {
 
   const removeCity = useCallback(
     (city: CityInfo) => {
-      if (cityInfoList.length == 1)
-        return alert("You cannot have less than 1 city in list!");
+      if (cityInfoList.length == 1) return alert("You cannot have less than 1 city in list!");
 
       const updatedCityList = cityInfoList.filter((c) => c.id !== city.id);
       setCityInfoList(updatedCityList);

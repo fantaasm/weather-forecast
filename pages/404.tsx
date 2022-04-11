@@ -33,9 +33,7 @@ const ErrorPage = (): JSX.Element => {
             height={"128"}
             width={"320"}
           />
-          <p className={"mt-4 text-xl"}>
-            Page not found... redirecting in {time}
-          </p>
+          <p className={"mt-4 text-xl"}>Page not found... redirecting in {time}</p>
         </div>
       </div>
     </Layout>

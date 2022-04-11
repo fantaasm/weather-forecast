@@ -54,10 +54,7 @@ async function fetchCitiesData(
  *
  * @todo - add proper exception handling
  */
-async function updateUserCities(
-  userSession: Session,
-  cityList: CityInfo[]
-): Promise<boolean> {
+async function updateUserCities(userSession: Session, cityList: CityInfo[]): Promise<boolean> {
   console.log("@updateUserCities: userSession: ", userSession);
 
   if (!userSession) {

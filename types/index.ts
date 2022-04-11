@@ -3,20 +3,22 @@ export type Coordinates = {
   lat: number;
 };
 
-export type CityInfo = {
+export interface CityInfo {
   id: number;
   name: string;
   country: string;
   state: string;
   coord: Coordinates;
-};
+}
 
-export type CityData = {
+export interface CityData {
   daily: Index[];
   hourly: Index[];
   minutely: Index[];
   current: any;
-};
+}
+
+export interface CombinedCityData extends CityData, CityInfo {}
 
 export type Temperature = {
   day: number;

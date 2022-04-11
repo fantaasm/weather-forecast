@@ -18,10 +18,7 @@ export type Document = {
 
 let cityList: CityInfo[];
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // 0 Load cities on first request
   if (!cityList) {
     await fetch(
@@ -48,10 +45,7 @@ export default async function handler(
   // 2. Validate CSRF token and JWT Session
   const sessionPromise: Promise<Session | null> = getSession({ req });
   const csrfTokenPromise = getCsrfToken({ req });
-  const [session, csrfToken] = await Promise.all([
-    sessionPromise,
-    csrfTokenPromise,
-  ]);
+  const [session, csrfToken] = await Promise.all([sessionPromise, csrfTokenPromise]);
 
   if (!session || !csrfToken) {
     return res.status(403).json({ error: "Not authorized" });
@@ -65,9 +59,7 @@ export default async function handler(
     if (document) {
       try {
         const { cities } = document.data() as Document;
-        const userCities = cities.map((cityId: number) =>
-          cityList.find((c) => c.id === cityId)
-        );
+        const userCities = cities.map((cityId: number) => cityList.find((c) => c.id === cityId));
         return res.status(200).json(userCities);
       } catch (e: any) {
         console.log(e.message);

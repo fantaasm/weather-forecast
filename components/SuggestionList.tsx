@@ -6,7 +6,7 @@ type Props = {
   limitResults: number;
 };
 
-const AutoCompleteList = ({
+const SuggestionList = ({
   list,
   onClick,
   limitResults,
@@ -24,7 +24,7 @@ const AutoCompleteList = ({
         type={"button"}
         onClick={() => onClick(city)}
         className={
-          "block p-1 border-b border-gray-400 text-left w-full hover:bg-sky-400"
+          "block p-1 border-b border-gray-400 text-dark text-left w-full hover:bg-sky-400"
         }
       >
         {city.name}, {city.country}
@@ -33,4 +33,4 @@ const AutoCompleteList = ({
   }
 };
 
-export default AutoCompleteList;
+export default SuggestionList;

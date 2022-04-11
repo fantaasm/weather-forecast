@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { GiMagnifyingGlass } from "react-icons/gi";
-import AutoCompleteList from "./AutoCompleteList";
+import SuggestionList from "./SuggestionList";
 import { CityInfo } from "../types";
 
 const pako = require("pako");
@@ -76,14 +76,14 @@ const SearchBar = ({ onSubmit, limit }: Props): JSX.Element => {
         />
         <input
           value={input}
-          className={"ml-2 py-2 w-full bg-transparent"}
+          className={"focus:outline-none text-dark ml-2 py-2 w-full bg-transparent"}
           onChange={handleFormChanged}
           onClick={getCities}
           type={"text"}
           placeholder={"Search new phrase"}
         />
         {input && input.length > 1 && (
-          <AutoCompleteList
+          <SuggestionList
             list={filteredList}
             onClick={addCity}
             limitResults={limit}

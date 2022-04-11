@@ -10,11 +10,7 @@ type Props = {
 const Layout = ({ children, title, description }: Props): JSX.Element => {
   return (
     <>
-      <NextSeo
-        title={title}
-        description={description}
-        openGraph={{ title, description }}
-      />
+      <NextSeo title={title} description={description} openGraph={{ title, description }} />
       {children}
     </>
   );

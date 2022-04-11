@@ -12,10 +12,7 @@ type Data = {
 
 const database = collection(db, "weather-forecast");
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse<Data>) {
   const csrfTokenHeader = req.headers["x-csrf-token"];
   const csrfTokenCookie = await getCsrfToken({ req });
 
@@ -38,9 +35,7 @@ export default async function handler(
   const dataQuerySnapshot = await getDocs(q);
 
   if (!dataQuerySnapshot.empty) {
-    res
-      .status(400)
-      .json({ error: "User with this email is already registered" });
+    res.status(400).json({ error: "User with this email is already registered" });
     return;
   }
 
@@ -49,8 +44,7 @@ export default async function handler(
 
   // 4. Register user.
   const uid =
-    Math.random().toString(36).substring(2, 15) +
-    Math.random().toString(36).substring(2, 15);
+    Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
   await setDoc(doc(database, uid), {
     email: email,
     password: hashedPassword,

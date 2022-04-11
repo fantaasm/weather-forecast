@@ -4,6 +4,7 @@ import MinMaxLine from "./MinMaxLine";
 import { Index } from "../types";
 import { BsDot } from "react-icons/bs";
 import { weekDays } from "../services/dateUtils";
+import { Fragment } from "react";
 
 type Props = {
   data?: Index[];
@@ -16,7 +17,7 @@ const WeatherTable = ({ data }: Props): JSX.Element => {
 
   return (
     <div className={"-mt-2 overflow-auto"}>
-      <div className="flex justify-between pb-4">
+      <div className="flex gap-24 sm:gap-32 pb-4">
         <button className={"font-extrabold flex flex-col items-center"}>
           <div>Week</div>
           <BsDot size={24} />
@@ -24,7 +25,8 @@ const WeatherTable = ({ data }: Props): JSX.Element => {
 
         <button
           disabled={true}
-          className={"text-gray-500 opacity-80 flex flex-col items-center"}
+          // className={"text-gray-500 opacity-80 flex flex-col items-center"}
+          className={"opacity-80 flex flex-col items-center"}
         >
           <div>Month</div>
           <div>
@@ -33,7 +35,8 @@ const WeatherTable = ({ data }: Props): JSX.Element => {
         </button>
         <button
           disabled={true}
-          className={"text-gray-500 opacity-80 flex flex-col items-center"}
+          // className={"text-gray-500 opacity-80 flex flex-col items-center"}
+          className={"opacity-80 flex flex-col items-center"}
         >
           <div>3 months</div>
           <div>
@@ -42,7 +45,8 @@ const WeatherTable = ({ data }: Props): JSX.Element => {
         </button>
         <button
           disabled={true}
-          className={"text-gray-500 opacity-80 flex flex-col items-center"}
+          // className={"text-gray-500 opacity-80 flex flex-col items-center"}
+          className={"opacity-80 flex flex-col items-center"}
         >
           <div>6 months</div>
           <div>
@@ -53,12 +57,13 @@ const WeatherTable = ({ data }: Props): JSX.Element => {
 
       <div
         className={
-          "grid grid-cols-6 md:grid-cols-7 items-center gap-y-2 sm:gap-y-6 justify-center text-center text-gray-700 font-semibold"
+          // "grid grid-cols-6 md:grid-cols-7 items-center gap-y-2 sm:gap-y-6 justify-center text-center text-gray-700 font-semibold"
+          "grid grid-cols-6 md:grid-cols-7 items-center gap-y-2 sm:gap-y-6 justify-center text-center font-semibold"
         }
       >
         {data.slice(0, weekDays.length).map((day, i) => {
           return (
-            <>
+            <Fragment key={i}>
               <span className={"text-left overflow-hidden"}>
                 {weekDays[new Date(day.dt * 1000).getDay()]}
               </span>
@@ -79,7 +84,8 @@ const WeatherTable = ({ data }: Props): JSX.Element => {
                   objectFit={"contain"}
                 />
               </div>
-              <span className={"text-gray-500 opacity-80"}>
+              {/*<span className={"text-gray-500 opacity-80"}>*/}
+              <span className={"text-gray-500 dark:text-white-100 opacity-90"}>
                 {Math.floor(day.temp.min)}°C
               </span>
               <div className={"md:col-span-2 flex items-center"}>
@@ -89,7 +95,7 @@ const WeatherTable = ({ data }: Props): JSX.Element => {
                 />
               </div>
               <b className={"text-right"}>{Math.floor(day.temp.max)}°C</b>
-            </>
+            </Fragment>
           );
         })}
       </div>

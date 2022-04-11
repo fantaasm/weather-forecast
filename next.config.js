@@ -2,6 +2,8 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
+const withPreact = require("next-plugin-preact");
+
 /**
  * @type {import('next').NextConfig}
  */
@@ -21,11 +23,12 @@ const nextConfig = {
   },
   images: {
     domains: ["openweathermap.org", "lh3.googleusercontent.com", "avatars.githubusercontent.com"],
-    formats: ['image/avif', 'image/webp'],
+    formats: ["image/avif", "image/webp"],
   },
   typescript: {
     ignoreBuildErrors: true,
   },
 };
 
-module.exports = withBundleAnalyzer(nextConfig);
+// module.exports = withBundleAnalyzer(nextConfig);
+module.exports = withPreact(nextConfig);

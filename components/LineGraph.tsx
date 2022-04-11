@@ -99,9 +99,7 @@ const LineGraph = ({ data, interval }: Props): JSX.Element => {
             return (
               <div className={"bg-slate-900 p-2 border border-gray-600"}>
                 <div>{`${properties[index].name}: ${
-                  Math.floor(point.data.y as number) +
-                  " " +
-                  properties[index].postFix
+                  Math.floor(point.data.y as number) + " " + properties[index].postFix
                 }`}</div>
               </div>
             );

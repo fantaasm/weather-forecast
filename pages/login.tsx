@@ -1,10 +1,5 @@
 import { GetServerSidePropsContext } from "next";
-import {
-  getCsrfToken,
-  getProviders,
-  getSession,
-  signIn,
-} from "next-auth/react";
+import { getCsrfToken, getProviders, getSession, signIn } from "next-auth/react";
 import { Provider } from "next-auth/providers";
 import Layout from "../components/Layout";
 import { useRouter } from "next/router";
@@ -24,9 +19,7 @@ const title = "Login - Weather Forecast";
 const description = "Weather Forecast login page";
 
 const Login = ({ providers, csrfToken }: Props): JSX.Element => {
-  const [serverMessage, setServerMessage] = useState<ServerMessage | null>(
-    null
-  );
+  const [serverMessage, setServerMessage] = useState<ServerMessage | null>(null);
   const [login, setLogin] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
@@ -41,11 +34,7 @@ const Login = ({ providers, csrfToken }: Props): JSX.Element => {
 
     console.log("repeatedpassword", repeatPassword);
     // 1. Check if all fields are filled
-    if (
-      email.length === 0 ||
-      password.length === 0 ||
-      repeatPassword.length === 0
-    ) {
+    if (email.length === 0 || password.length === 0 || repeatPassword.length === 0) {
       setServerMessage({ error: "Please fill out all the fields" });
       setLoading(false);
       return;
@@ -63,11 +52,7 @@ const Login = ({ providers, csrfToken }: Props): JSX.Element => {
     }
 
     // 3. Check if password is valid (at least 8 characters, at least one number, at least one uppercase letter, at least one special character)
-    if (
-      !password.match(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-      )
-    ) {
+    if (!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)) {
       setServerMessage({
         error:
           "Please enter a valid password containing at least 8 characters, at least one number, at least one uppercase letter, at least one special character",
@@ -106,6 +91,7 @@ const Login = ({ providers, csrfToken }: Props): JSX.Element => {
       setLogin(true);
     }
   }
+
   async function submitLoginForm(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const email = event.currentTarget.email.value;
@@ -149,8 +135,60 @@ const Login = ({ providers, csrfToken }: Props): JSX.Element => {
 
   return (
     <Layout title={title} description={description}>
-      <main className={"text-white h-screen flex sm:items-center"}>
+      <main className={"text-white h-screen max-h-screen  flex sm:items-center"}>
         {login ? renderLoginForm() : renderRegisterForm()}
+        <svg
+          className={
+            "absolute max-w-full max-h-full overflow-hidden bottom-0 opacity-40 -z-10 w-full"
+          }
+          preserveAspectRatio={"none"}
+          id="visual"
+          viewBox="0 0 960 420"
+          width="960"
+          height="540"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
+          version="1.1"
+        >
+          <path
+            d="M0 366L40 337.3C80 308.7 160 251.3 240 245.5C320 239.7 400 285.3 480 307.8C560 330.3 640 329.7 720 279.5C800 229.3 880 129.7 920 79.8L960 30L960 541L920 541C880 541 800 541 720 541C640 541 560 541 480 541C400 541 320 541 240 541C160 541 80 541 40 541L0 541Z"
+            fill="#99779f"
+          ></path>
+          <path
+            d="M0 247L40 263.7C80 280.3 160 313.7 240 323.7C320 333.7 400 320.3 480 316.7C560 313 640 319 720 309.2C800 299.3 880 273.7 920 260.8L960 248L960 541L920 541C880 541 800 541 720 541C640 541 560 541 480 541C400 541 320 541 240 541C160 541 80 541 40 541L0 541Z"
+            fill="#9465a8"
+          ></path>
+          <path
+            d="M0 311L40 339.8C80 368.7 160 426.3 240 430C320 433.7 400 383.3 480 381.2C560 379 640 425 720 415.8C800 406.7 880 342.3 920 310.2L960 278L960 541L920 541C880 541 800 541 720 541C640 541 560 541 480 541C400 541 320 541 240 541C160 541 80 541 40 541L0 541Z"
+            fill="#8a53b4"
+          ></path>
+          <path
+            d="M0 529L40 524.5C80 520 160 511 240 487.3C320 463.7 400 425.3 480 401.5C560 377.7 640 368.3 720 378.2C800 388 880 417 920 431.5L960 446L960 541L920 541C880 541 800 541 720 541C640 541 560 541 480 541C400 541 320 541 240 541C160 541 80 541 40 541L0 541Z"
+            fill="#7643c2"
+          ></path>
+        </svg>
+
+        <svg
+          className={"absolute -z-20 opacity-40 max-w-full max-h-full w-screen h-screen"}
+          id="visual"
+          viewBox="0 0 960 540"
+          width="960"
+          height="540"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
+          version="1.1"
+        >
+          <g fill="#297EA6">
+            <path
+              d="M0 -144.4L32.4 -44.6L137.3 -44.6L52.5 17L84.9 116.8L0 55.2L-84.9 116.8L-52.5 17L-137.3 -44.6L-32.4 -44.6Z"
+              transform="translate(693 118)"
+            ></path>
+            <path
+              d="M0 -72.7L16.3 -22.5L69.1 -22.5L26.4 8.6L42.7 58.8L0 27.8L-42.7 58.8L-26.4 8.6L-69.1 -22.5L-16.3 -22.5Z"
+              transform="translate(77 328)"
+            ></path>
+          </g>
+        </svg>
       </main>
     </Layout>
   );
@@ -160,31 +198,17 @@ const Login = ({ providers, csrfToken }: Props): JSX.Element => {
     return (
       <div className={"container max-w-lg p-4 sm:p-8 mx-auto"}>
         <div className={"mb-6"}>
-          <h1 className={"mb-2 text-3xl font-black"}>
-            Login to Weather Forecast
-          </h1>
+          <h1 className={"mb-2 text-3xl font-black"}>Login to Weather Forecast</h1>
           <h2>
             Not a member?{" "}
-            <button
-              className={"text-sky-400 cursor-pointer"}
-              onClick={switchForm}
-            >
+            <button className={"text-sky-400 cursor-pointer"} onClick={switchForm}>
               Sign up
             </button>
           </h2>
         </div>
-        {serverMessage?.error && (
-          <p className={"text-red-400"}>{serverMessage.error}</p>
-        )}
-        {serverMessage?.message && (
-          <p className={"text-sky-700"}>{serverMessage.message}</p>
-        )}
-        <form
-          method={"post"}
-          title={"sign up form"}
-          name={"Sign up"}
-          onSubmit={submitLoginForm}
-        >
+        {serverMessage?.error && <p className={"text-red-400"}>{serverMessage.error}</p>}
+        {serverMessage?.message && <p className={"text-sky-700"}>{serverMessage.message}</p>}
+        <form method={"post"} title={"sign up form"} name={"Sign up"} onSubmit={submitLoginForm}>
           <div className={"flex flex-col gap-6 mt-6"}>
             <div>
               <label className={"text-slate-400"}>Email</label>
@@ -217,7 +241,7 @@ const Login = ({ providers, csrfToken }: Props): JSX.Element => {
               type="submit"
               name={"login button"}
               onClick={() => setLoading(true)}
-              className={`mt-2 p-4 bg-sky-700 rounded-md font-black drop-shadow-3xl tracking-wider relative ${
+              className={`mt-2 p-4 bg-sky-800 rounded-md font-black drop-shadow-3xl tracking-wider relative ${
                 loading ? "cursor-not-allowed opacity-80" : ""
               }`}
             >
@@ -251,9 +275,7 @@ const Login = ({ providers, csrfToken }: Props): JSX.Element => {
                   {/*<button className="relative px-6 py-3 w-full overflow-hidden font-medium transition-all bg-transparent border rounded-md hover:bg-white group"*/}
                   <button
                     className="relative p-4 w-full border-2 border-[#2D3136] overflow-hidden font-medium transition-all bg-[#1F2329] bg-opacity-75 border rounded-md group hover:bg-white"
-                    onClick={() =>
-                      signIn(provider.id, { callbackUrl: "/weather-forecast" })
-                    }
+                    onClick={() => signIn(provider.id, { callbackUrl: "/weather-forecast" })}
                   >
                     <span className="w-[27rem] h-[24rem] rounded rotate-[-40deg] bg-[#1d9bf0] absolute bottom-0 left-0 -translate-x-full ease-out duration-300 transition-all translate-y-full mb-9 ml-9 group-hover:-ml-24 group-hover:mb-56 group-hover:translate-x-0" />
                     <span className="relative w-full text-left transition-colors duration-300 ease-in-out group-hover:text-white">
@@ -276,20 +298,13 @@ const Login = ({ providers, csrfToken }: Props): JSX.Element => {
           <h1 className={"mb-2 text-3xl font-black"}>Create an account</h1>
           <h2>
             Already a member?{" "}
-            <button
-              className={"text-sky-400 cursor-pointer"}
-              onClick={switchForm}
-            >
+            <button className={"text-sky-400 cursor-pointer"} onClick={switchForm}>
               Sign in
             </button>
           </h2>
         </div>
-        {serverMessage?.error && (
-          <p className={"text-red-500"}>{serverMessage.error}</p>
-        )}
-        {serverMessage?.message && (
-          <p className={"text-sky-700"}>{serverMessage.message}</p>
-        )}
+        {serverMessage?.error && <p className={"text-red-500"}>{serverMessage.error}</p>}
+        {serverMessage?.message && <p className={"text-sky-700"}>{serverMessage.message}</p>}
         <form method={"post"} onSubmit={submitRegisterForm}>
           <div className={"flex flex-col gap-6 mt-6"}>
             <div>
@@ -335,7 +350,7 @@ const Login = ({ providers, csrfToken }: Props): JSX.Element => {
             <button
               type="submit"
               disabled={loading}
-              className={`mt-2 p-4 bg-sky-700 rounded-md font-black drop-shadow-3xl tracking-wider relative ${
+              className={`mt-2 p-4 bg-sky-800 rounded-md font-black drop-shadow-3xl tracking-wider relative ${
                 loading ? "cursor-not-allowed opacity-80" : ""
               }`}
             >
